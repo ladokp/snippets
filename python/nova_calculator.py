@@ -1,4 +1,4 @@
-# This is a simple NoVA calculator
+# This is a simple Austrian NoVA calculator
 from collections import namedtuple
 from decimal import Decimal
 
