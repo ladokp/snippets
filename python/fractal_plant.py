@@ -30,9 +30,9 @@ rules = {
     'F': 'FF+[+F-F-F]-[-F+F+F]'
 }
 axiom = "F"
-iterations = 3
-angle = 30
-length = 11
+iterations = 4
+angle = 25
+length = 10
 
 # L-System generieren und zeichnen
 turtle.speed(0)
