@@ -39,6 +39,13 @@ PARAMETERS_LIST = {
         Decimal("80.00"),
         Decimal("0.80"),
     ),
+    2025: Parameter(
+        92,
+        350,
+        140,
+        Decimal("90.00"),
+        Decimal("0.90"),
+    ),
 }
 
 
