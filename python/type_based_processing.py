@@ -1,4 +1,8 @@
 from functools import singledispatch
+import logging
+
+# Configure logging
+logging.basicConfig(level=logging.DEBUG)
 
 # Base function using @singledispatch
 @singledispatch
@@ -11,7 +15,7 @@ def process_data(data):
 
 # Overload for strings
 @process_data.register
-def _(data: str):
+def _(data: str) -> str:
     """
     Process string data by converting to uppercase.
     """
@@ -19,7 +23,7 @@ def _(data: str):
 
 # Overload for integers
 @process_data.register
-def _(data: int):
+def _(data: int) -> int:
     """
     Process integer data by returning its square.
     """
@@ -27,7 +31,7 @@ def _(data: int):
 
 # Overload for lists
 @process_data.register
-def _(data: list):
+def _(data: list) -> list:
     """
     Process list data by reversing it.
     """
@@ -35,21 +39,54 @@ def _(data: list):
 
 # Overload for dictionaries
 @process_data.register
-def _(data: dict):
+def _(data: dict) -> dict:
     """
     Process dictionary by swapping keys and values.
     """
     return {v: k for k, v in data.items()}
 
+# Overload for floats
+@process_data.register
+def _(data: float) -> float:
+    """
+    Process float data by rounding to two decimal places.
+    """
+    return round(data, 2)
+
+# Overload for tuples
+@process_data.register
+def _(data: tuple) -> tuple:
+    """
+    Process tuple data by sorting it.
+    """
+    return tuple(sorted(data))
+
+# Overload for sets
+@process_data.register
+def _(data: set) -> set:
+    """
+    Process set data by converting it to a sorted list.
+    """
+    return sorted(data)
+
 # Example usage
+def main():
+    examples = [
+        "hello",
+        5,
+        [1, 2, 3],
+        {"a": 1, "b": 2},
+        3.14159,
+        (3, 1, 2),
+        {3, 1, 2}
+    ]
+    
+    for example in examples:
+        try:
+            result = process_data(example)
+            logging.info(f"Processed data: {result}")
+        except TypeError as e:
+            logging.error(e)
+
 if __name__ == "__main__":
-    print(process_data("hello"))       # Output: "HELLO"
-    print(process_data(5))            # Output: 25
-    print(process_data([1, 2, 3]))    # Output: [3, 2, 1]
-    print(process_data({"a": 1, "b": 2}))  # Output: {1: "a", 2: "b"}
-    
-    try:
-        print(process_data(3.14))  # Unsupported type
-    except TypeError as e:
-        print(e)  # Output: Unsupported data type: <class 'float'>
-    
+    main()
