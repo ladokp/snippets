@@ -4,7 +4,7 @@ import random
 BOARD_SIZE = 8  # Size of the chessboard
 EMPTY = "."  # Empty cell representation
 QUEEN = "Q"  # Queen's position representation
-OBSTACLE = "X"  # Obstacle representation
+OBSTACLE = "#"  # Obstacle representation
 GOAL = "G"  # Goal position representation
 INITIAL_SCORE = 100  # Starting score for the player
 
