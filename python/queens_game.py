@@ -5,6 +5,7 @@ BOARD_SIZE = 8  # Size of the chessboard
 EMPTY = "."  # Empty cell representation
 QUEEN = "Q"  # Queen's position representation
 OBSTACLE = "#"  # Obstacle representation
+NUMBER_IF_OBSTACLES = 20 # Number of obstacles
 GOAL = "G"  # Goal position representation
 INITIAL_SCORE = 100  # Starting score for the player
 
@@ -24,7 +25,7 @@ def create_board():
     goal_position = (BOARD_SIZE - 1, BOARD_SIZE - 1)  # Goal at bottom-right corner
 
     # Place random obstacles on the board
-    for _ in range(10):
+    for _ in range(NUMBER_IF_OBSTACLES):
         x, y = random.randint(0, BOARD_SIZE - 1), random.randint(0, BOARD_SIZE - 1)
         if (x, y) != queen_position and (x, y) != goal_position:
             board[x][y] = OBSTACLE
