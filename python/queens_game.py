@@ -39,14 +39,17 @@ def create_board():
 
 def print_board(board):
     """
-    Prints the current state of the game board.
+    Prints the current state of the game board with coordinate descriptions.
 
     Args:
         board (list): 2D list representing the board.
     """
-    for row in board:
-        print(" ".join(row))
-    print()
+    # Print column headers with proper alignment
+    print("   " + " ".join(f"{i}" for i in range(BOARD_SIZE)))
+
+    for i, row in enumerate(board):
+        # Print row number with alignment
+        print(f"{i:2} " + " ".join(row))
 
 
 def is_valid_path(board, start, end):
