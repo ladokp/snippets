@@ -1,4 +1,5 @@
 import random
+import os
 
 # Constants
 BOARD_SIZE = 8  # Size of the chessboard
@@ -8,6 +9,11 @@ OBSTACLE = "#"  # Obstacle representation
 NUMBER_IF_OBSTACLES = 20 # Number of obstacles
 GOAL = "G"  # Goal position representation
 INITIAL_SCORE = 100  # Starting score for the player
+
+
+def clear_screen():
+    """Clears the terminal screen."""
+    os.system('cls' if os.name == 'nt' else 'clear')
 
 
 def create_board():
@@ -37,13 +43,17 @@ def create_board():
     return board, queen_position, goal_position
 
 
-def print_board(board):
+def print_board(board, clear=False):
     """
     Prints the current state of the game board with coordinate descriptions.
 
     Args:
         board (list): 2D list representing the board.
+        clear (bool): Whether to clear the screen before printing.
     """
+    if clear:
+        clear_screen()
+
     # Print column headers with proper alignment
     print("   " + " ".join(f"{i}" for i in range(BOARD_SIZE)))
 
@@ -115,9 +125,11 @@ def move_queen(board, queen_pos, destination):
 
 def play_game():
     """
-    Main function to play the Queen's Game. Includes game setup, gameplay loop, 
+    Main function to play the Queen's Game. Includes game setup, gameplay loop,
     scoring, and the option to start a new game.
     """
+    clear_screen()  # Clear previous outputs before starting the game
+
     while True:  # Loop to allow starting a new game
         # Initialize game board, queen position, and goal
         board, queen_pos, goal_pos = create_board()
@@ -126,6 +138,8 @@ def play_game():
         print("Welcome to the Queen's Game!")
         print("Reach the goal with the highest score possible!")
         print_board(board)
+
+        first_move = True  # Flag to skip clearing the screen on the first display
 
         while True:  # Game loop
             print(f"Queen's position: {queen_pos}")
@@ -152,7 +166,8 @@ def play_game():
                 # Calculate distance traveled and deduct score
                 distance = max(abs(x_dest - original_position[0]), abs(y_dest - original_position[1]))
                 score -= distance
-                print_board(board)
+                print_board(board, clear=not first_move)
+                first_move = False
 
             # Check for game over conditions
             if score <= 0:
