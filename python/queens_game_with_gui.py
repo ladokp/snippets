@@ -88,24 +88,34 @@ def move_queen(board, queen_pos, destination):
 
 
 class QueensGame:
-    def __init__(self, board, queen_pos, goal_pos, score):
-        self.board = board
-        self.queen_pos = queen_pos
-        self.goal_pos = goal_pos
-        self.score = score
+    def __init__(self, board_size, number_of_obstacles, initial_score):
+        self.board_size = board_size
+        self.number_of_obstacles = number_of_obstacles
+        self.initial_score = initial_score
+
+        self.board, self.queen_pos, self.goal_pos = create_board(self.board_size, self.number_of_obstacles)
+        self.score = self.initial_score
         self.selected = None
         self.game_over = False
 
         self.root = tk.Tk()
         self.root.title("Queen's Game")
-
-        canvas_size = max(len(board), len(board[0])) * CELL_SIZE
-        self.canvas = tk.Canvas(self.root, width=canvas_size, height=canvas_size + 50)
+        self.canvas_size = max(self.board_size, self.board_size) * CELL_SIZE
+        self.canvas = tk.Canvas(self.root, width=self.canvas_size, height=self.canvas_size + 50)
         self.canvas.pack()
-        self.canvas.bind("<Button-1>", self.on_click)
-
+        self.restart_button = tk.Button(self.root, text="Restart Game", command=self.restart_game)
+        self.restart_button.pack()
         self.draw_board()
         self.root.mainloop()
+
+    def restart_game(self):
+        self.board, self.queen_pos, self.goal_pos = create_board(self.board_size, self.number_of_obstacles)
+        self.score = self.initial_score
+        self.selected = None
+        self.game_over = False
+
+        self.canvas.bind("<Button-1>", self.on_click)
+        self.draw_board()
 
     def draw_board(self):
         self.canvas.delete("all")
@@ -159,9 +169,9 @@ class QueensGame:
         self.draw_board()
 
     def end_game(self, message):
-        self.game_over = True  # Mark the game as over to prevent selection
-        self.queen_pos = self.goal_pos  # Ensure Queen is displayed at the goal
-        self.draw_board()  # Redraw the board to reflect Queen at goal
+        self.game_over = True
+        self.queen_pos = self.goal_pos
+        self.draw_board()
         self.canvas.create_rectangle(0, len(self.board) * CELL_SIZE, len(self.board[0]) * CELL_SIZE, len(self.board) * CELL_SIZE + 50, fill="white")
         self.canvas.create_text(
             len(self.board[0]) * CELL_SIZE // 2,
@@ -175,8 +185,7 @@ class QueensGame:
 
 def play_game():
     board_size, number_of_obstacles, initial_score = get_game_parameters()
-    board, queen_pos, goal_pos = create_board(board_size, number_of_obstacles)
-    QueensGame(board, queen_pos, goal_pos, initial_score)
+    QueensGame(board_size, number_of_obstacles, initial_score)
 
 
 if __name__ == "__main__":
