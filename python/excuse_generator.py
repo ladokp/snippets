@@ -2,7 +2,7 @@ import random
 
 def generate_excuse():
     excuses = (
-        "My dog ate the code.",
+        "My ferret ate the code.",
         "I was stuck in a never-ending Zoom meeting.",
         "I thought today was a public holiday.",
         "I accidentally formatted my laptop instead of my USB stick.",
