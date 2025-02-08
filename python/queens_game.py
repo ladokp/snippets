@@ -3,8 +3,8 @@ import os
 
 # Default Constants
 DEFAULT_BOARD_SIZE = 8  # Size of the chessboard
-DEFAULT_NUMBER_OF_OBSTACLES = 20  # Number of obstacles
-DEFAULT_INITIAL_SCORE = 100  # Starting score for the player
+DEFAULT_NUMBER_OF_OBSTACLES =  int((DEFAULT_BOARD_SIZE ** 2) / 3) # Number of obstacles
+DEFAULT_INITIAL_SCORE = DEFAULT_BOARD_SIZE * 3  # Starting score for the player
 
 EMPTY = "."  # Empty cell representation
 QUEEN = "Q"  # Queen's position representation
