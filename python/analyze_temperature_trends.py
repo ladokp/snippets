@@ -8,7 +8,6 @@ def analyse_temperature_trend(temperatures: list[float]) -> str:
     increasing = all(temperatures[i] < temperatures[i + 1] for i in range(len(temperatures) - 1))
     decreasing = all(temperatures[i] > temperatures[i + 1] for i in range(len(temperatures) - 1))
 
-
     match (increasing, decreasing):
         case (True, False):
             return "increasing"
