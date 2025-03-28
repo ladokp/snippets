@@ -18,7 +18,7 @@ def word_histogram(text):
 
 
 if __name__ == "__main__":
-    text = """
+    text = input("Text: ") or """
     Python is amazing! Amazing tools, amazing community, and amazing code.
     Python is simple and elegant, yet powerful.
     """
