@@ -9,7 +9,7 @@ def word_histogram(text):
         A histogram displaying the frequency of each word in the text.
     """
     words = text.lower().split()
-    words = map(lambda w: w.strip('.,!?;:"'), words)
+    words = tuple(map(lambda w: w.strip('.,!?;:"'), words))
     word_counts = {word: words.count(word) for word in set(words)}
     sorted_counts = sorted(word_counts.items(), key=lambda x: x[1], reverse=True)
 
